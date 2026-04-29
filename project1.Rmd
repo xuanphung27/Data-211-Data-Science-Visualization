@@ -1,0 +1,44 @@
+---
+title: "project"
+author: "Xuan Phung"
+date: "2026-04-29"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(readxl)
+library(ggplot2)
+```
+```{r}
+workout_dataset<- read_excel("C:/Users/amorn/Downloads/workout_dataset.xlsx")
+```
+
+```{r}
+ggplot(workout_dataset, aes(x=`Time(minutes)`, y=CaloriesBurned)) +
+  geom_point(size=3) + geom_smooth(method = "lm", se = TRUE)+
+  labs(
+    title="Calories Burned Per Workout",
+    x="Workout Time (Minutes)",
+    y="Calories Burned"
+  )+theme_minimal()
+```
+
+$\mu:$mean calories burend 
+$H_0: \mu = 200$ vs $H_a:\mu \ne 200$
+
+```{r}
+t.test(
+  x = workout_dataset$CaloriesBurned,
+  mu = 200,
+  alternative = "greater"
+)
+```
+
+
+
